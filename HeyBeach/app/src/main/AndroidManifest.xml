@@ -21,6 +21,11 @@
 
         </activity>
 
+        <service
+            android:name=".service.BeachService"
+            android:exported="false"
+            android:label="Beach Service" />
+
     </application>
 
 </manifest>
