@@ -119,7 +119,7 @@ public class BeachListFragment extends BaseFragment implements BeachListView, Ap
 
 	private void setUpRecyclerView() {
 		mAdapter = new BeachListAdapter(mImageFetcher);
-		mStaggeredGridLayoutManager = new StaggeredGridLayoutManager(3, StaggeredGridLayoutManager.VERTICAL);
+		mStaggeredGridLayoutManager = new StaggeredGridLayoutManager(getResources().getInteger(R.integer.num_columns), StaggeredGridLayoutManager.VERTICAL);
 		mBeachRecyclerView.setLayoutManager(mStaggeredGridLayoutManager);
 		mBeachRecyclerView.setAdapter(mAdapter);
 	}
