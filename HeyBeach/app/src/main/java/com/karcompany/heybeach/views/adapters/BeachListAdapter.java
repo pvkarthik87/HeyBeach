@@ -7,13 +7,16 @@ package com.karcompany.heybeach.views.adapters;
  */
 
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.karcompany.heybeach.R;
+import com.karcompany.heybeach.cache.ImageFetcher;
 import com.karcompany.heybeach.models.BeachMetaData;
+import com.karcompany.heybeach.networking.ApiRepo;
 
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
@@ -30,9 +33,12 @@ public class BeachListAdapter extends RecyclerView.Adapter<BeachListItemViewHold
 	private int VIEW_TYPE_ITEM = 1;
 	private int VIEW_TYPE_PROGRESS = 2;
 
-	public BeachListAdapter() {
+	private ImageFetcher mImageFetcher;
+
+	public BeachListAdapter(ImageFetcher imageFetcher) {
 		mBeachDataMap = new LinkedHashMap<>();
 		mBeachIdList = new ArrayList<>(4);
+		mImageFetcher = imageFetcher;
 	}
 
 	@Override
@@ -56,8 +62,16 @@ public class BeachListAdapter extends RecyclerView.Adapter<BeachListItemViewHold
 					if (!TextUtils.isEmpty(beachItem.getName())) {
 						holder.imageTitleTxtView.setText(beachItem.getName());
 					}
+					if (!TextUtils.isEmpty(beachItem.getUrl())) {
+						// Finally load the image asynchronously into the ImageView, this also takes care of
+						// setting a placeholder image while the background thread runs
+						mImageFetcher.loadImage(ApiRepo.getBaseUrl(beachItem.getUrl()), holder.imageImgView);
+					}
 				}
 			}
+		} else {
+			StaggeredGridLayoutManager.LayoutParams layoutParams = (StaggeredGridLayoutManager.LayoutParams) holder.itemView.getLayoutParams();
+			layoutParams.setFullSpan(true);
 		}
 	}
 

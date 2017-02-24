@@ -4,7 +4,7 @@ import android.content.Context;
 
 import com.karcompany.heybeach.models.BeachListApiResponse;
 import com.karcompany.heybeach.models.BeachMetaData;
-import com.karcompany.heybeach.service.BeachResultReceiver;
+import com.karcompany.heybeach.service.ApiResultReceiver;
 import com.karcompany.heybeach.service.ServiceHelper;
 import com.karcompany.heybeach.views.BeachListView;
 
@@ -42,6 +42,7 @@ public class BeachListPresenterImpl implements BeachListPresenter {
 	@Override
 	public void setView(BeachListView beachListView) {
 		mView = beachListView;
+		mCurrPageNo = -1;
 	}
 
 	@Override
@@ -74,12 +75,12 @@ public class BeachListPresenterImpl implements BeachListPresenter {
 	}
 
 	@Override
-	public void loadBeaches(Context ctx, BeachResultReceiver beachResultReceiver) {
+	public void loadBeaches(Context ctx, ApiResultReceiver apiResultReceiver) {
 		synchronized (this) {
 			if (!mIsLoading) {
 				mIsLoading = true;
 				mCurrPageNo++;
-				ServiceHelper.fetchBeaches(ctx, mCurrPageNo, beachResultReceiver);
+				ServiceHelper.fetchBeaches(ctx, mCurrPageNo, apiResultReceiver);
 			}
 		}
 	}

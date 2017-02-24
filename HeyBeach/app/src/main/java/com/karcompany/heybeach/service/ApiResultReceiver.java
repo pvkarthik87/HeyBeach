@@ -8,11 +8,11 @@ import android.support.v4.os.ResultReceiver;
  * Created by pvkarthik on 2017-02-22.
  */
 
-public class BeachResultReceiver extends ResultReceiver {
+public class ApiResultReceiver extends ResultReceiver {
 	private Receiver receiver;
 
 	// Constructor takes a handler
-	public BeachResultReceiver(Handler handler) {
+	public ApiResultReceiver(Handler handler) {
 		super(handler);
 	}
 

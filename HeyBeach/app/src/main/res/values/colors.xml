@@ -9,4 +9,7 @@
     <color name="neutral_medium_dark">#272C30</color>
     <color name="neutral_medium_soft_dark">#33272313</color>
     <color name="colorWhite">#FFFFFF</color>
+
+    <!-- 70% opacity -->
+    <color name="progress_overlay">#CC000000</color>
 </resources>

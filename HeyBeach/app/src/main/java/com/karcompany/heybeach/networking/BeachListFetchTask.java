@@ -3,9 +3,13 @@ package com.karcompany.heybeach.networking;
 import android.os.AsyncTask;
 
 import com.karcompany.heybeach.models.BeachListApiResponse;
+import com.karcompany.heybeach.service.ApiResponse;
 import com.karcompany.heybeach.service.BeachFetchRequest;
 
 import java.lang.ref.WeakReference;
+
+import static com.karcompany.heybeach.service.ApiResponse.ERROR;
+import static com.karcompany.heybeach.service.ApiResponse.SUCCESS;
 
 /**
  * Created by pvkarthik on 2017-02-22.
@@ -14,19 +18,13 @@ import java.lang.ref.WeakReference;
 public class BeachListFetchTask extends
 		AsyncTask<BeachFetchRequest, Void, BeachListApiResponse> {
 
-	public interface TaskListener {
-
-		void onTaskComplete(BeachFetchRequest request, BeachListApiResponse beachListApiResponse);
-
-	}
-
 	private BeachFetchRequest mRequest;
 	private WeakReference<TaskListener> listenerRef;
 
 	public BeachListFetchTask(BeachFetchRequest request, TaskListener taskListener) {
 		mRequest = request;
 		if (taskListener != null) {
-			listenerRef = new WeakReference<TaskListener>(taskListener);
+			listenerRef = new WeakReference<>(taskListener);
 		}
 	}
 
@@ -39,10 +37,16 @@ public class BeachListFetchTask extends
 
 	@Override
 	protected void onPostExecute(BeachListApiResponse beachListApiResponse) {
-		if(beachListApiResponse != null) {
-			if (getListener() != null) {
-				getListener().onTaskComplete(mRequest, beachListApiResponse);
+		if (getListener() != null) {
+			ApiResponse apiResponse = new ApiResponse();
+			apiResponse.setApiType(ApiType.FETCH_BEACHES);
+			if(beachListApiResponse != null) {
+				apiResponse.setResponse(beachListApiResponse);
+				apiResponse.setResponseCode(SUCCESS);
+			} else {
+				apiResponse.setResponseCode(ERROR);
 			}
+			getListener().onTaskComplete(mRequest, apiResponse);
 		}
 	}
 
