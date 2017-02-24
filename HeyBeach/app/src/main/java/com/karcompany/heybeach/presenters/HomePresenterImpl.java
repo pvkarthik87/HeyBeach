@@ -20,7 +20,7 @@ public class HomePresenterImpl implements HomePresenter {
 
 	public static HomePresenterImpl getInstance() {
 		if (mInstance == null) {
-			synchronized (BeachListPresenterImpl.class) {
+			synchronized (HomePresenterImpl.class) {
 				if (mInstance == null) {
 					mInstance = new HomePresenterImpl();
 				}

@@ -1,5 +1,5 @@
 /**
- * Created by pvkarthik on 2017-01-12.
+ * Created by pvkarthik on 2017-02-20.
  *
  * This is POJO class corresponding to server response (JSON).
  */

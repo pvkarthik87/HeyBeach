@@ -19,4 +19,8 @@
     <string name="logout_progress">Logout in progress....</string>
     <string name="logout_success">Logout Success.</string>
     <string name="logout_failure">Failed to logout try again later.</string>
+    <string name="user_profile">Profile</string>
+    <string name="user_id">Unique ID</string>
+    <string name="user_email">Email</string>
+    <string name="user_profile_progress">Loading details</string>
 </resources>

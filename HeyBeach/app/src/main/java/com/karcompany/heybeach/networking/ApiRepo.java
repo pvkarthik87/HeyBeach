@@ -10,6 +10,7 @@ import com.karcompany.heybeach.models.BeachListApiResponse;
 import com.karcompany.heybeach.models.BeachMetaData;
 import com.karcompany.heybeach.models.DeleteApiResponse;
 import com.karcompany.heybeach.models.RegisterApiResponse;
+import com.karcompany.heybeach.models.UserMetaData;
 
 import org.json.JSONObject;
 
@@ -45,6 +46,7 @@ public class ApiRepo {
 	private static final String REGISTER_URL = "user/register";
 	private static final String LOGIN_URL = "user/login";
 	private static final String LOGOUT_URL = "user/logout";
+	private static final String FETCH_USER = "user/me";
 
 
 	public static String getBaseUrl(String url) {
@@ -54,7 +56,7 @@ public class ApiRepo {
 	public static BeachListApiResponse fetchBeaches(int pageNo) {
 		Map<String, String> paramsMap = new HashMap<>();
 		paramsMap.put(PARAM_PAGE, ""+pageNo);
-		String rawResponse = doGetRequest(getBaseUrl(BEACH_URL), paramsMap);
+		String rawResponse = doGetRequest(getBaseUrl(BEACH_URL), paramsMap, null);
 		ArrayList<BeachMetaData> beachList = ApiUtils.parseBeachListApiResponse(rawResponse);
 		if(beachList == null) return null;
 		BeachListApiResponse beachListApiResponse = new BeachListApiResponse();
@@ -94,14 +96,21 @@ public class ApiRepo {
 		return deleteApiResponse;
 	}
 
-	private static String doGetRequest(String baseUrl, Map<String, String> keyValuePair) {
+	public static UserMetaData fetchUser(String authToken) {
+		Map<String, String> headersMap = new HashMap<>();
+		headersMap.put(HEADER_ATOKEN, authToken);
+		String rawResponse = doGetRequest(getBaseUrl(FETCH_USER), null, headersMap);
+		return ApiUtils.parseFetchUserApiResponse(rawResponse);
+	}
+
+	private static String doGetRequest(String baseUrl, Map<String, String> queryParams, Map<String, String> headerMap) {
 		try {
 
 			Uri.Builder builder = Uri.parse(baseUrl)
 					.buildUpon();
 
-			if(keyValuePair != null) {
-				for (Map.Entry<String, String> entry : keyValuePair.entrySet()) {
+			if(queryParams != null) {
+				for (Map.Entry<String, String> entry : queryParams.entrySet()) {
 					builder.appendQueryParameter(entry.getKey(), entry.getValue());
 				}
 			}
@@ -111,6 +120,11 @@ public class ApiRepo {
 			URL url = new URL(finalUrl); // here is your URL path
 			HttpURLConnection conn = (HttpURLConnection) url.openConnection();
 			conn.setRequestProperty("Cache-Control", "no-cache");
+			if(headerMap != null) {
+				for (Map.Entry<String, String> entry : headerMap.entrySet()) {
+					conn.setRequestProperty(entry.getKey(), entry.getValue());
+				}
+			}
 			int responseCode=conn.getResponseCode();
 
 			if (responseCode == HttpsURLConnection.HTTP_OK) {

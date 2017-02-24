@@ -125,7 +125,9 @@ public class BeachListActivity extends BaseActivity implements HomeView, ApiResu
 	}
 
 	private void goToProfileView() {
-
+		Intent intent = new Intent(this, UserProfileActivity.class);
+		intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+		startActivity(intent);
 	}
 
 	private void showLogoutConfirmDlg() {

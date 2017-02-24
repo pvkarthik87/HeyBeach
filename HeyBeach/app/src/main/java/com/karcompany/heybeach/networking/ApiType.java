@@ -11,7 +11,8 @@ public enum ApiType implements Parcelable {
 	FETCH_BEACHES,
 	REGISTER,
 	LOGIN,
-	LOGOUT;
+	LOGOUT,
+	FETCH_PROFILE;
 
 	@Override
 	public int describeContents() {

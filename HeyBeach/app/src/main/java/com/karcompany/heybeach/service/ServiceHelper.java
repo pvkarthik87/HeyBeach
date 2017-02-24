@@ -22,6 +22,7 @@ public class ServiceHelper {
 	public static final String EXTRA_PWD = "EXTRA_PWD";
 
 	public static final String ACTION_LOGOUT = "com.karcompany.heybeach.ACTION_LOGOUT";
+	public static final String ACTION_FETCH_PROFILE = "com.karcompany.heybeach.ACTION_FETCH_PROFILE";
 
 	public static void fetchBeaches(Context context, int pageNo, ApiResultReceiver resultReceiver) {
 		if(context == null || pageNo < 0) return;
@@ -56,6 +57,14 @@ public class ServiceHelper {
 		if(context == null) return;
 		Intent intent = new Intent(context, ApiService.class);
 		intent.setAction(ACTION_LOGOUT);
+		intent.putExtra(EXTRA_RECEIVER, resultReceiver);
+		context.startService(intent);
+	}
+
+	public static void fetchProfile(Context context, ApiResultReceiver resultReceiver) {
+		if(context == null) return;
+		Intent intent = new Intent(context, ApiService.class);
+		intent.setAction(ACTION_FETCH_PROFILE);
 		intent.putExtra(EXTRA_RECEIVER, resultReceiver);
 		context.startService(intent);
 	}

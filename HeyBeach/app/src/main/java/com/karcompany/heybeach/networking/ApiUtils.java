@@ -4,6 +4,7 @@ import android.text.TextUtils;
 
 import com.karcompany.heybeach.models.BeachListApiResponse;
 import com.karcompany.heybeach.models.BeachMetaData;
+import com.karcompany.heybeach.models.UserMetaData;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -23,6 +24,7 @@ public class ApiUtils {
 	private static final String PARAM_URL = "url";
 	private static final String PARAM_WIDTH = "width";
 	private static final String PARAM_HEIGHT = "height";
+	private static final String PARAM_EMAIL = "email";
 
 	public static ArrayList<BeachMetaData> parseBeachListApiResponse(String response) {
 		if(TextUtils.isEmpty(response)) return null;
@@ -46,6 +48,19 @@ public class ApiUtils {
 			} catch (final JSONException e) {
 				return null;
 			}
+	}
+
+	public static UserMetaData parseFetchUserApiResponse(String response) {
+		if(TextUtils.isEmpty(response)) return null;
+		try {
+			JSONObject jsonObject = new JSONObject(response);
+			UserMetaData userMetaData = new UserMetaData();
+			userMetaData.setId(jsonObject.getString(PARAM_ID));
+			userMetaData.setEmail(jsonObject.getString(PARAM_EMAIL));
+			return userMetaData;
+		} catch (final JSONException e) {
+			return null;
+		}
 	}
 
 }

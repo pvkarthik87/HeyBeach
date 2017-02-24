@@ -18,7 +18,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.karcompany.heybeach.R;
 import com.karcompany.heybeach.config.Constants;

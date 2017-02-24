@@ -13,6 +13,7 @@ import com.karcompany.heybeach.config.Constants;
 import com.karcompany.heybeach.logging.DefaultLogger;
 import com.karcompany.heybeach.models.RegisterApiResponse;
 import com.karcompany.heybeach.networking.BeachListFetchTask;
+import com.karcompany.heybeach.networking.FetchUserTask;
 import com.karcompany.heybeach.networking.LoginTask;
 import com.karcompany.heybeach.networking.LogoutTask;
 import com.karcompany.heybeach.networking.RegisterTask;
@@ -100,6 +101,10 @@ public class ApiService extends Service implements TaskListener {
 			doLogout((ResultReceiver)intent.getParcelableExtra(EXTRA_RECEIVER));
 		}
 
+		if (ServiceHelper.ACTION_FETCH_PROFILE.equals(action)) {
+			fetchUserDetails((ResultReceiver)intent.getParcelableExtra(EXTRA_RECEIVER));
+		}
+
 		return START_NOT_STICKY;
 	}
 
@@ -131,6 +136,14 @@ public class ApiService extends Service implements TaskListener {
 		if(KeyValueUtils.isLoggedIn(getApplicationContext())) {
 			DefaultLogger.d(TAG, "doLogout");
 			LogoutRequest request = new LogoutRequest(KeyValueUtils.getKey(getApplicationContext(), Constants.KEY_ACCESS_TOKEN), resultReceiver);
+			addRequest(request);
+		}
+	}
+
+	private void fetchUserDetails(ResultReceiver resultReceiver) {
+		if(KeyValueUtils.isLoggedIn(getApplicationContext())) {
+			DefaultLogger.d(TAG, "fetchUserDetails");
+			FetchUserRequest request = new FetchUserRequest(KeyValueUtils.getKey(getApplicationContext(), Constants.KEY_ACCESS_TOKEN), resultReceiver);
 			addRequest(request);
 		}
 	}
@@ -194,6 +207,14 @@ public class ApiService extends Service implements TaskListener {
 				DefaultLogger.d(TAG, "processRequest : LogoutRequest");
 				LogoutTask logoutTask = new LogoutTask(logoutRequest, this);
 				logoutTask.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, logoutRequest);
+			}
+			break;
+
+			case FETCH_PROFILE: {
+				FetchUserRequest fetchUserRequest = (FetchUserRequest) request;
+				DefaultLogger.d(TAG, "processRequest : fetchUserRequest");
+				FetchUserTask fetchUserTask = new FetchUserTask(fetchUserRequest, this);
+				fetchUserTask.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, fetchUserRequest);
 			}
 			break;
 		}

@@ -26,7 +26,7 @@ public class MainLoginPresenterImpl implements MainLoginPresenter {
 
 	public static MainLoginPresenterImpl getInstance() {
 		if (mInstance == null) {
-			synchronized (BeachListPresenterImpl.class) {
+			synchronized (MainLoginPresenterImpl.class) {
 				if (mInstance == null) {
 					mInstance = new MainLoginPresenterImpl();
 				}
