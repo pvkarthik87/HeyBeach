@@ -49,7 +49,7 @@ public class BeachListFragment extends BaseFragment implements BeachListView, Ap
 			int totalItemCount = 0;
 			int lastVisibleItem = 0;
 			totalItemCount = mStaggeredGridLayoutManager.getItemCount();
-			int[] positions = new int[3];
+			int[] positions = new int[getResources().getInteger(R.integer.num_columns)];
 			positions = mStaggeredGridLayoutManager.findLastVisibleItemPositions(positions);
 			lastVisibleItem = positions[1] > positions[0] ? positions[1] : positions[0];
 			if (!mBeachListPresenter.isLoading()
