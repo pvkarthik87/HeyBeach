@@ -18,13 +18,11 @@ import android.widget.TextView;
 
 import com.karcompany.heybeach.R;
 import com.karcompany.heybeach.logging.DefaultLogger;
-import com.karcompany.heybeach.models.BeachListApiResponse;
 import com.karcompany.heybeach.models.RegisterApiResponse;
 import com.karcompany.heybeach.presenters.MainLoginPresenter;
 import com.karcompany.heybeach.presenters.MainLoginPresenterImpl;
 import com.karcompany.heybeach.presenters.SignUpPresenter;
 import com.karcompany.heybeach.presenters.SignUpPresenterImpl;
-import com.karcompany.heybeach.security.SecUtil;
 import com.karcompany.heybeach.service.ApiResponse;
 import com.karcompany.heybeach.service.ApiResultReceiver;
 import com.karcompany.heybeach.service.ServiceHelper;
@@ -181,8 +179,6 @@ public class UserSignUpFragment extends BaseFragment implements SignUpView, ApiR
 	}
 
 	public void onSignUpBtnClicked() {
-		String encryptedData = SecUtil.getEncryptedData(getContext(), "karthik");
-		String decryptedData = SecUtil.getDecryptedData(getContext(), encryptedData);
 		if(mSignUpBtn.isEnabled()) {
 			mMainLoginPresenter.register(getContext(), mUserEmailView.getText().toString(), mUserPwdView.getText().toString(), mResultReceiver);
 		}

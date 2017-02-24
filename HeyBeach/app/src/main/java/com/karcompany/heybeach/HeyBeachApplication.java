@@ -8,14 +8,11 @@ package com.karcompany.heybeach;
 
 import android.app.Application;
 
-import com.karcompany.heybeach.security.SecUtil;
-
 public class HeyBeachApplication extends Application {
 
 	@Override
 	public void onCreate() {
 		super.onCreate();
-		SecUtil.init(getApplicationContext());
 	}
 }
 
