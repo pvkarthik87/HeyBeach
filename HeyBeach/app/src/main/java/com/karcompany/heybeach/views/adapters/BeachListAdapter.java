@@ -6,6 +6,9 @@ package com.karcompany.heybeach.views.adapters;
  * Recycler view adapter which displays beach list data.
  */
 
+import android.graphics.drawable.ColorDrawable;
+import android.support.v4.content.ContextCompat;
+import android.support.v4.view.ViewCompat;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.text.TextUtils;
@@ -15,6 +18,7 @@ import android.view.ViewGroup;
 
 import com.karcompany.heybeach.R;
 import com.karcompany.heybeach.cache.ImageFetcher;
+import com.karcompany.heybeach.cache.ImageWorker;
 import com.karcompany.heybeach.models.BeachMetaData;
 import com.karcompany.heybeach.networking.ApiRepo;
 
@@ -35,10 +39,19 @@ public class BeachListAdapter extends RecyclerView.Adapter<BeachListItemViewHold
 
 	private ImageFetcher mImageFetcher;
 
+	private int mColorIndex = 0;
+
+	private List<Integer> mColourList;
+
 	public BeachListAdapter(ImageFetcher imageFetcher) {
 		mBeachDataMap = new LinkedHashMap<>();
 		mBeachIdList = new ArrayList<>(4);
 		mImageFetcher = imageFetcher;
+		mColourList = new ArrayList<>(4);
+		mColourList.add(R.color.accent_brand);
+		mColourList.add(R.color.neutral_medium_soft_dark);
+		mColourList.add(R.color.light_brand);
+		mColourList.add(R.color.medium_brand);
 	}
 
 	@Override
@@ -53,7 +66,7 @@ public class BeachListAdapter extends RecyclerView.Adapter<BeachListItemViewHold
 	}
 
 	@Override
-	public void onBindViewHolder(BeachListItemViewHolder holder, int position) {
+	public void onBindViewHolder(final BeachListItemViewHolder holder, int position) {
 		if(getItemViewType(position) == VIEW_TYPE_ITEM) {
 			holder.imageTitleTxtView.setText("");
 			if (position < mBeachIdList.size()) {
@@ -63,9 +76,15 @@ public class BeachListAdapter extends RecyclerView.Adapter<BeachListItemViewHold
 						holder.imageTitleTxtView.setText(beachItem.getName());
 					}
 					if (!TextUtils.isEmpty(beachItem.getUrl())) {
+						ViewCompat.setBackground(holder.imageImgView, new ColorDrawable(ContextCompat.getColor(holder.itemView.getContext(), getColorIndex())));
 						// Finally load the image asynchronously into the ImageView, this also takes care of
 						// setting a placeholder image while the background thread runs
-						mImageFetcher.loadImage(ApiRepo.getBaseUrl(beachItem.getUrl()), holder.imageImgView);
+						mImageFetcher.loadImage(ApiRepo.getBaseUrl(beachItem.getUrl()), holder.imageImgView, new ImageWorker.OnImageLoadedListener() {
+							@Override
+							public void onImageLoaded(boolean success) {
+								ViewCompat.setBackground(holder.imageImgView, null);
+							}
+						});
 					}
 				}
 			}
@@ -135,5 +154,12 @@ public class BeachListAdapter extends RecyclerView.Adapter<BeachListItemViewHold
 				notifyDataSetChanged();
 			}
 		}
+	}
+
+	private synchronized int getColorIndex() {
+		int colour = mColourList.get(mColorIndex);
+		mColorIndex++;
+		if (mColorIndex == mColourList.size()) mColorIndex = 0;
+		return colour;
 	}
 }
