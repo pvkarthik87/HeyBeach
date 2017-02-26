@@ -1,0 +1,26 @@
+<resources>
+    <string name="app_name">HeyBeach</string>
+    <string name="login">Login</string>
+    <string name="my_profile">My Profile</string>
+    <string name="logout">Logout</string>
+    <string name="email_hint">Email Address</string>
+    <string name="password_hint">Password</string>
+    <string name="singup">Register</string>
+    <string name="field_mandatory">This field is mandatory</string>
+    <string name="email_wrong_fmt">Please Check and Enter a valid Email Address</string>
+    <string name="pwd_wrong_fmt">Password must be minimum of 6 characters</string>
+    <string name="login_success">Login Success.</string>
+    <string name="register_success">Register Success.</string>
+    <string name="login_progress">Login in progress....</string>
+    <string name="register_progress">Signing up in progress....</string>
+    <string name="logout_confirmation_msg">Are you sure?</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
+    <string name="logout_progress">Logout in progress....</string>
+    <string name="logout_success">Logout Success.</string>
+    <string name="logout_failure">Failed to logout try again later.</string>
+    <string name="user_profile">Profile</string>
+    <string name="user_id">Unique ID</string>
+    <string name="user_email">Email</string>
+    <string name="user_profile_progress">Loading details</string>
+</resources>
