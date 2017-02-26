@@ -101,4 +101,17 @@ public class BeachListPresenterImpl implements BeachListPresenter {
 			}
 		}
 	}
+
+	@Override
+	public int getCurrentPageNo() {
+		if(mIsLoading)
+			return mCurrPageNo - 1;
+		else
+			return mCurrPageNo;
+	}
+
+	@Override
+	public void setCurrentPageNo(int pageNo) {
+		mCurrPageNo = pageNo;
+	}
 }

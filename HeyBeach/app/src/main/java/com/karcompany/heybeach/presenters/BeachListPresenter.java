@@ -24,4 +24,8 @@ public interface BeachListPresenter extends Presenter {
 
 	void onDataReceived(BeachListApiResponse beachListApiResponse);
 
+	int getCurrentPageNo();
+
+	void setCurrentPageNo(int pageNo);
+
 }

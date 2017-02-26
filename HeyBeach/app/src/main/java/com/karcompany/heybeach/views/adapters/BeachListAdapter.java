@@ -23,6 +23,7 @@ import com.karcompany.heybeach.models.BeachMetaData;
 import com.karcompany.heybeach.networking.ApiRepo;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -161,5 +162,15 @@ public class BeachListAdapter extends RecyclerView.Adapter<BeachListItemViewHold
 		mColorIndex++;
 		if (mColorIndex == mColourList.size()) mColorIndex = 0;
 		return colour;
+	}
+
+	public ArrayList<BeachMetaData> getBeachList() {
+		ArrayList<BeachMetaData> beachList = new ArrayList<>();
+		Iterator<Map.Entry<String, BeachMetaData>> iterator = mBeachDataMap.entrySet().iterator();
+		while (iterator.hasNext()) {
+			Map.Entry<String, BeachMetaData> entry = iterator.next();
+			beachList.add(entry.getValue());
+		}
+		return beachList;
 	}
 }

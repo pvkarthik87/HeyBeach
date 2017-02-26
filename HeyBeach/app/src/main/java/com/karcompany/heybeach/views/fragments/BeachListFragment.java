@@ -23,6 +23,7 @@ import com.karcompany.heybeach.service.ServiceHelper;
 import com.karcompany.heybeach.views.BeachListView;
 import com.karcompany.heybeach.views.adapters.BeachListAdapter;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import static android.app.Activity.RESULT_OK;
@@ -34,6 +35,9 @@ import static android.app.Activity.RESULT_OK;
 public class BeachListFragment extends BaseFragment implements BeachListView, ApiResultReceiver.Receiver {
 
 	private static final String TAG = DefaultLogger.makeLogTag(BeachListFragment.class);
+	private static final String CURRENT_BEACH_LIST = "CURRENT_BEACH_LIST";
+	private static final String CURRENT_PAGE_NO = "CURRENT_PAGE_NO";
+
 
 	private RecyclerView mBeachRecyclerView;
 	private BeachListAdapter mAdapter;
@@ -114,6 +118,15 @@ public class BeachListFragment extends BaseFragment implements BeachListView, Ap
 	private void setUpUI(Bundle savedInstanceState) {
 		setUpRecyclerView();
 		setupServiceReceiver();
+		if (savedInstanceState != null) {
+			if(savedInstanceState.containsKey(CURRENT_PAGE_NO)) {
+				mBeachListPresenter.setCurrentPageNo(savedInstanceState.getInt(CURRENT_PAGE_NO, -1));
+			}
+			if(savedInstanceState.containsKey(CURRENT_BEACH_LIST)) {
+				ArrayList<BeachMetaData> beachList = savedInstanceState.getParcelableArrayList(CURRENT_BEACH_LIST);
+				mAdapter.addData(beachList);
+			}
+		}
 		mBeachRecyclerView.addOnScrollListener(mScrollListener);
 	}
 
@@ -209,5 +222,12 @@ public class BeachListFragment extends BaseFragment implements BeachListView, Ap
 				}
 			}
 		}
+	}
+
+	@Override
+	public void onSaveInstanceState(Bundle outState) {
+		super.onSaveInstanceState(outState);
+		outState.putInt(CURRENT_PAGE_NO, mBeachListPresenter.getCurrentPageNo());
+		outState.putParcelableArrayList(CURRENT_BEACH_LIST, mAdapter.getBeachList());
 	}
 }
