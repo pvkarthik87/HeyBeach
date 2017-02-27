@@ -1,5 +1,10 @@
 package com.karcompany.heybeach.presenters;
 
+import android.content.Context;
+
+import com.karcompany.heybeach.service.ApiResultReceiver;
+import com.karcompany.heybeach.service.ServiceHelper;
+import com.karcompany.heybeach.storage.KeyValueUtils;
 import com.karcompany.heybeach.views.HomeView;
 
 /**
@@ -77,5 +82,15 @@ public class HomePresenterImpl implements HomePresenter {
 		if(mView != null) {
 			mView.onLogoutSuccess();
 		}
+	}
+
+	@Override
+	public void logout(Context ctx, ApiResultReceiver apiResultReceiver) {
+		if(ctx == null || apiResultReceiver == null) return;
+		if(!KeyValueUtils.isLoggedIn(ctx)) return;
+		if(mView != null) {
+			mView.onLogoutProgress();
+		}
+		ServiceHelper.logout(ctx, apiResultReceiver);
 	}
 }

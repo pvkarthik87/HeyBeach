@@ -21,8 +21,6 @@ public interface MainLoginPresenter extends Presenter {
 
 	void login(Context ctx, String email, String pwd, ApiResultReceiver apiResultReceiver);
 
-	void logout(Context ctx, ApiResultReceiver apiResultReceiver);
-
 	void onLoginSuccess();
 
 	void onRegisterSuccess();

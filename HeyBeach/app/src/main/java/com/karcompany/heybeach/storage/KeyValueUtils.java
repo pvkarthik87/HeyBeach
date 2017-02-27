@@ -15,7 +15,7 @@ public class KeyValueUtils {
 
 	public static boolean isLoggedIn(Context ctx) {
 		if(ctx == null) return false;
-		SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(ctx.getApplicationContext());
+		SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(ctx);
 		String token =  sharedPreferences.getString(Constants.KEY_ACCESS_TOKEN, "");
 		return !TextUtils.isEmpty(token);
 	}
