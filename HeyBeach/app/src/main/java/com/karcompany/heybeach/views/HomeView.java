@@ -12,6 +12,8 @@ public interface HomeView {
 
 	void onRegisterSuccess();
 
+	void onLogoutProgress();
+
 	void onLogoutSuccess();
 
 }

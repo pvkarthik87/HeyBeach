@@ -148,11 +148,11 @@ public class BeachListActivity extends BaseActivity implements HomeView, ApiResu
 	}
 
 	private void doLogout() {
-		onLogoutProgress();
 		mHomePresenter.logout(getApplicationContext(), mResultReceiver);
 	}
 
-	private void onLogoutProgress() {
+	@Override
+	public void onLogoutProgress() {
 		mProgressTxt.setText(R.string.logout_progress);
 		mProgressLyt.setVisibility(View.VISIBLE);
 	}

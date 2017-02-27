@@ -88,6 +88,9 @@ public class HomePresenterImpl implements HomePresenter {
 	public void logout(Context ctx, ApiResultReceiver apiResultReceiver) {
 		if(ctx == null || apiResultReceiver == null) return;
 		if(!KeyValueUtils.isLoggedIn(ctx)) return;
+		if(mView != null) {
+			mView.onLogoutProgress();
+		}
 		ServiceHelper.logout(ctx, apiResultReceiver);
 	}
 }
