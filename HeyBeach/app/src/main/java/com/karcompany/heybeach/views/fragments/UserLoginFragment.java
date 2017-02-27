@@ -224,9 +224,15 @@ public class UserLoginFragment extends BaseFragment implements LoginView, ApiRes
 			if(response != null) {
 				switch (response.getApiType()) {
 					case LOGIN: {
-						RegisterApiResponse registerApiResponse = (RegisterApiResponse) response.getResponse();
-						if (registerApiResponse != null && response.getResponseCode() == ApiResponse.SUCCESS) {
-							mMainLoginPresenter.onLoginSuccess();
+						if(response.getResponseCode() == ApiResponse.SUCCESS) {
+							RegisterApiResponse registerApiResponse = (RegisterApiResponse) response.getResponse();
+							if (registerApiResponse != null) {
+								mMainLoginPresenter.onLoginSuccess();
+							} else {
+								mMainLoginPresenter.onLoginFailed();
+							}
+						} else {
+							mMainLoginPresenter.onLoginFailed();
 						}
 					}
 					break;

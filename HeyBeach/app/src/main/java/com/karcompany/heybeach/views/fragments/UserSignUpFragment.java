@@ -221,9 +221,15 @@ public class UserSignUpFragment extends BaseFragment implements SignUpView, ApiR
 			if(response != null) {
 				switch (response.getApiType()) {
 					case REGISTER: {
-						RegisterApiResponse registerApiResponse = (RegisterApiResponse) response.getResponse();
-						if (registerApiResponse != null && response.getResponseCode() == ApiResponse.SUCCESS) {
-							mMainLoginPresenter.onRegisterSuccess();
+						if(response.getResponseCode() == ApiResponse.SUCCESS) {
+							RegisterApiResponse registerApiResponse = (RegisterApiResponse) response.getResponse();
+							if (registerApiResponse != null) {
+								mMainLoginPresenter.onRegisterSuccess();
+							} else {
+								mMainLoginPresenter.onRegisterFailed();
+							}
+						} else {
+							mMainLoginPresenter.onRegisterFailed();
 						}
 					}
 					break;

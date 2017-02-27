@@ -23,4 +23,6 @@
     <string name="user_id">Unique ID</string>
     <string name="user_email">Email</string>
     <string name="user_profile_progress">Loading details</string>
+    <string name="login_failed">Login Failed.</string>
+    <string name="register_failed">Signup Failed.</string>
 </resources>

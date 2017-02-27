@@ -23,6 +23,10 @@ public interface MainLoginPresenter extends Presenter {
 
 	void onLoginSuccess();
 
+	void onLoginFailed();
+
 	void onRegisterSuccess();
+
+	void onRegisterFailed();
 
 }

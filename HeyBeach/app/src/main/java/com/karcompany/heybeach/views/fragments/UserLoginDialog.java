@@ -18,6 +18,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.karcompany.heybeach.R;
 import com.karcompany.heybeach.config.Constants;
@@ -224,7 +225,21 @@ public class UserLoginDialog extends BaseDialogFragment implements MainLoginView
 	}
 
 	@Override
+	public void onLoginFailed() {
+		Toast.makeText(getContext(), getString(R.string.login_failed), Toast.LENGTH_SHORT).show();
+		mProgressLyt.setVisibility(View.GONE);
+		getDialog().setCanceledOnTouchOutside(true);
+	}
+
+	@Override
 	public void onRegisterSuccess() {
 		dismiss();
+	}
+
+	@Override
+	public void onRegisterFailed() {
+		Toast.makeText(getContext(), getString(R.string.register_failed), Toast.LENGTH_SHORT).show();
+		mProgressLyt.setVisibility(View.GONE);
+		getDialog().setCanceledOnTouchOutside(true);
 	}
 }
