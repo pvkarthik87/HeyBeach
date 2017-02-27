@@ -149,7 +149,7 @@ public class BeachListActivity extends BaseActivity implements HomeView, ApiResu
 
 	private void doLogout() {
 		onLogoutProgress();
-		ServiceHelper.logout(getApplicationContext(), mResultReceiver);
+		mHomePresenter.logout(getApplicationContext(), mResultReceiver);
 	}
 
 	private void onLogoutProgress() {

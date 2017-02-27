@@ -24,4 +24,6 @@ public interface HomePresenter extends Presenter {
 
 	void onLogoutSuccess();
 
+	void logout(Context ctx, ApiResultReceiver apiResultReceiver);
+
 }

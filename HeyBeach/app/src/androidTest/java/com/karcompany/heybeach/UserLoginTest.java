@@ -43,7 +43,7 @@ public class UserLoginTest {
 	public ActivityTestRule<BeachListActivity> activityRule = new ActivityTestRule<>(BeachListActivity.class);
 
 	@Test
-	public void testLogin17() {
+	public void testLogin() {
 		openActionBarOverflowOrOptionsMenu(InstrumentationRegistry.getTargetContext());
 		onView(withText(R.string.login)).perform(click());
 		onView(allOf(withId(R.id.userEmail), isDisplayed())).perform(typeText("pvkarthik81@gmail.com"));
@@ -51,14 +51,18 @@ public class UserLoginTest {
 		onView(withId(R.id.loginBtn)).check(matches(isEnabled()));
 		onView(withId(R.id.loginBtn)).perform(click());
 		SystemClock.sleep(5000);
+	}
+
+	@Test
+	public void testLoggedinProfile() {
 		openActionBarOverflowOrOptionsMenu(InstrumentationRegistry.getTargetContext());
-		onView(withText(R.string.logout)).check(matches(isDisplayed()));
+		onView(withText(R.string.my_profile)).check(matches(isDisplayed()));
 		onView(withText(R.string.my_profile)).perform(click());
 		onView(withId(R.id.profileCardView)).check(matches(isDisplayed()));
 	}
 
 	@Test
-	public void testLogin18() {
+	public void testLogout() {
 		openActionBarOverflowOrOptionsMenu(InstrumentationRegistry.getTargetContext());
 		onView(withText(R.string.logout)).perform(click());
 		onView(withText(R.string.logout_confirmation_msg)).check(matches(isDisplayed()));

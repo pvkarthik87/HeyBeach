@@ -1,10 +1,12 @@
 package com.karcompany.heybeach.presenters;
 
 import android.content.Context;
+import android.text.TextUtils;
 
 import com.karcompany.heybeach.config.Constants;
 import com.karcompany.heybeach.service.ApiResultReceiver;
 import com.karcompany.heybeach.service.ServiceHelper;
+import com.karcompany.heybeach.storage.KeyValueUtils;
 import com.karcompany.heybeach.views.MainLoginView;
 
 /**
@@ -76,6 +78,8 @@ public class MainLoginPresenterImpl implements MainLoginPresenter {
 
 	@Override
 	public void register(Context ctx, String email, String pwd, ApiResultReceiver apiResultReceiver) {
+		if(ctx == null || TextUtils.isEmpty(email) || TextUtils.isEmpty(pwd) || apiResultReceiver == null) return;
+		if(KeyValueUtils.isLoggedIn(ctx)) return;
 		if(mView != null) {
 			mView.onRegisterProgress();
 		}
@@ -84,15 +88,12 @@ public class MainLoginPresenterImpl implements MainLoginPresenter {
 
 	@Override
 	public void login(Context ctx, String email, String pwd, ApiResultReceiver apiResultReceiver) {
+		if(ctx == null || TextUtils.isEmpty(email) || TextUtils.isEmpty(pwd) || apiResultReceiver == null) return;
+		if(KeyValueUtils.isLoggedIn(ctx)) return;
 		if(mView != null) {
 			mView.onLoginProgress();
 		}
 		ServiceHelper.login(ctx, email, pwd, apiResultReceiver);
-	}
-
-	@Override
-	public void logout(Context ctx, ApiResultReceiver apiResultReceiver) {
-		ServiceHelper.logout(ctx, apiResultReceiver);
 	}
 
 	@Override

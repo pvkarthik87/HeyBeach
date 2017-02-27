@@ -34,7 +34,7 @@ public class ServiceHelper {
 	}
 
 	public static void register(Context context, String email, String pwd, ApiResultReceiver resultReceiver) {
-		if(context == null || TextUtils.isEmpty(email) || TextUtils.isEmpty(pwd)) return;
+		if(context == null || TextUtils.isEmpty(email) || TextUtils.isEmpty(pwd) || resultReceiver == null) return;
 		Intent intent = new Intent(context, ApiService.class);
 		intent.setAction(ACTION_REGISTER);
 		intent.putExtra(EXTRA_EMAIL, email);
@@ -44,7 +44,7 @@ public class ServiceHelper {
 	}
 
 	public static void login(Context context, String email, String pwd, ApiResultReceiver resultReceiver) {
-		if(context == null || TextUtils.isEmpty(email) || TextUtils.isEmpty(pwd)) return;
+		if(context == null || TextUtils.isEmpty(email) || TextUtils.isEmpty(pwd) || resultReceiver == null) return;
 		Intent intent = new Intent(context, ApiService.class);
 		intent.setAction(ACTION_LOGIN);
 		intent.putExtra(EXTRA_EMAIL, email);
@@ -54,7 +54,7 @@ public class ServiceHelper {
 	}
 
 	public static void logout(Context context, ApiResultReceiver resultReceiver) {
-		if(context == null) return;
+		if(context == null || resultReceiver == null) return;
 		Intent intent = new Intent(context, ApiService.class);
 		intent.setAction(ACTION_LOGOUT);
 		intent.putExtra(EXTRA_RECEIVER, resultReceiver);
@@ -62,7 +62,7 @@ public class ServiceHelper {
 	}
 
 	public static void fetchProfile(Context context, ApiResultReceiver resultReceiver) {
-		if(context == null) return;
+		if(context == null || resultReceiver == null) return;
 		Intent intent = new Intent(context, ApiService.class);
 		intent.setAction(ACTION_FETCH_PROFILE);
 		intent.putExtra(EXTRA_RECEIVER, resultReceiver);
