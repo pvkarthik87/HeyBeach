@@ -106,11 +106,25 @@ public class MainLoginPresenterImpl implements MainLoginPresenter {
 	}
 
 	@Override
+	public void onLoginFailed() {
+		if(mView != null) {
+			mView.onLoginFailed();
+		}
+	}
+
+	@Override
 	public void onRegisterSuccess() {
 		if(mView != null) {
 			mView.onRegisterSuccess();
 		}
 		HomePresenter homePresenter = HomePresenterImpl.getInstance();
 		homePresenter.onRegisterSuccess();
+	}
+
+	@Override
+	public void onRegisterFailed() {
+		if(mView != null) {
+			mView.onRegisterFailed();
+		}
 	}
 }

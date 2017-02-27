@@ -20,4 +20,8 @@ public interface MainLoginView {
 
 	void onLoginSuccess();
 
+	void onLoginFailed();
+
+	void onRegisterFailed();
+
 }
