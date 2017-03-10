@@ -13,6 +13,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.karcompany.heybeach.R;
+import com.karcompany.heybeach.logging.DefaultLogger;
 import com.karcompany.heybeach.presenters.HomePresenter;
 import com.karcompany.heybeach.presenters.HomePresenterImpl;
 import com.karcompany.heybeach.service.ApiResponse;
@@ -27,6 +28,8 @@ import com.karcompany.heybeach.views.fragments.UserLoginDialog;
  */
 
 public class BeachListActivity extends BaseActivity implements HomeView, ApiResultReceiver.Receiver {
+
+	private static final String TAG = DefaultLogger.makeLogTag(BeachListActivity.class);
 
 	private static final String LOGIN_DLG_TAG = "LOGIN_DLG_TAG";
 
@@ -205,6 +208,7 @@ public class BeachListActivity extends BaseActivity implements HomeView, ApiResu
 
 	@Override
 	public void onLoginSuccess() {
+		DefaultLogger.d(TAG, "Login Success");
 		Toast.makeText(this, getString(R.string.login_success), Toast.LENGTH_SHORT).show();
 		invalidateOptionsMenu();
 	}

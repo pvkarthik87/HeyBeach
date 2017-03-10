@@ -43,20 +43,20 @@ public class UserLoginValidationTest {
 	public ActivityTestRule<BeachListActivity> activityRule = new ActivityTestRule<>(BeachListActivity.class);
 
 	@Test
-	public void testLogin10() {
+	public void testLoginMenuShouldBeVisible() {
 		openActionBarOverflowOrOptionsMenu(InstrumentationRegistry.getTargetContext());
 		onView(withText(R.string.login)).check(matches(isDisplayed()));
 	}
 
 	@Test
-	public void testLogin11() {
+	public void testLoginDialogShouldBeVisibleOnLoginClick() {
 		openActionBarOverflowOrOptionsMenu(InstrumentationRegistry.getTargetContext());
 		onView(withText(R.string.login)).perform(click());
 		onView(withId(R.id.tab_layout)).check(matches(isDisplayed()));
 	}
 
 	@Test
-	public void testLogin12() {
+	public void testLoginButtonShouldNotBeEnabledForEmptyEmail() {
 		openActionBarOverflowOrOptionsMenu(InstrumentationRegistry.getTargetContext());
 		onView(withText(R.string.login)).perform(click());
 		onView(allOf(withId(R.id.userEmail), isDisplayed())).perform(typeText(""));
@@ -64,7 +64,7 @@ public class UserLoginValidationTest {
 	}
 
 	@Test
-	public void testLogin13() {
+	public void testProperErrorTextShouldBeShownForInvalidEmail() {
 		openActionBarOverflowOrOptionsMenu(InstrumentationRegistry.getTargetContext());
 		onView(withText(R.string.login)).perform(click());
 		onView(allOf(withId(R.id.userEmail), isDisplayed())).perform(typeText("pvkarthik"));
@@ -76,7 +76,7 @@ public class UserLoginValidationTest {
 	}
 
 	@Test
-	public void testLogin14() {
+	public void testErrorTextShouldNotBeShownForValidEmail() {
 		openActionBarOverflowOrOptionsMenu(InstrumentationRegistry.getTargetContext());
 		onView(withText(R.string.login)).perform(click());
 		onView(allOf(withId(R.id.userEmail), isDisplayed())).perform(typeText("pvkarthik87@gmail.com"));
@@ -88,15 +88,16 @@ public class UserLoginValidationTest {
 	}
 
 	@Test
-	public void testLogin15() {
+	public void testLoginButtonShouldNotBeEnabledForEmptyPwd() {
 		openActionBarOverflowOrOptionsMenu(InstrumentationRegistry.getTargetContext());
 		onView(withText(R.string.login)).perform(click());
+		onView(allOf(withId(R.id.userEmail), isDisplayed())).perform(typeText("pvkarthik87@gmail.com"));
 		onView(allOf(withId(R.id.userPwd), isDisplayed())).perform(typeText(""));
 		onView(withId(R.id.loginBtn)).check(matches(not(isEnabled())));
 	}
 
 	@Test
-	public void testLogin16() {
+	public void testErrorTextShouldNotBeShownForValidPwd() {
 		openActionBarOverflowOrOptionsMenu(InstrumentationRegistry.getTargetContext());
 		onView(withText(R.string.login)).perform(click());
 		onView(allOf(withId(R.id.userPwd), isDisplayed())).perform(typeText("123456"));
@@ -104,7 +105,7 @@ public class UserLoginValidationTest {
 		Context context = getContext();
 		onView(allOf(withId(R.id.userPwdLyt), isDisplayed()))
 				.check(matches(not(hasTextInputLayoutErrorText(
-						context.getString(R.string.pwd_wrong_fmt)))));
+						context.getString(R.string.field_mandatory)))));
 	}
 
 	private static Context getContext() {
