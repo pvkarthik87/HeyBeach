@@ -2,6 +2,7 @@ package com.karcompany.heybeach.presenters;
 
 import android.content.Context;
 
+import com.karcompany.heybeach.logging.DefaultLogger;
 import com.karcompany.heybeach.service.ApiResultReceiver;
 import com.karcompany.heybeach.service.ServiceHelper;
 import com.karcompany.heybeach.storage.KeyValueUtils;
@@ -14,6 +15,8 @@ import com.karcompany.heybeach.views.HomeView;
  */
 
 public class HomePresenterImpl implements HomePresenter {
+
+	private static final String TAG = DefaultLogger.makeLogTag(HomePresenterImpl.class);
 
 	private static HomePresenterImpl mInstance;
 
@@ -65,6 +68,7 @@ public class HomePresenterImpl implements HomePresenter {
 
 	@Override
 	public void onLoginSuccess() {
+		DefaultLogger.d(TAG, "Login Success");
 		if(mView != null) {
 			mView.onLoginSuccess();
 		}

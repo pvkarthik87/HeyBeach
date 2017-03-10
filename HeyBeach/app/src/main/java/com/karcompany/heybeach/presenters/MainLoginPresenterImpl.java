@@ -4,6 +4,7 @@ import android.content.Context;
 import android.text.TextUtils;
 
 import com.karcompany.heybeach.config.Constants;
+import com.karcompany.heybeach.logging.DefaultLogger;
 import com.karcompany.heybeach.service.ApiResultReceiver;
 import com.karcompany.heybeach.service.ServiceHelper;
 import com.karcompany.heybeach.storage.KeyValueUtils;
@@ -17,6 +18,8 @@ import com.karcompany.heybeach.views.MainLoginView;
  */
 
 public class MainLoginPresenterImpl implements MainLoginPresenter {
+
+	private static final String TAG = DefaultLogger.makeLogTag(MainLoginPresenterImpl.class);
 
 	private static MainLoginPresenterImpl mInstance;
 
@@ -98,6 +101,7 @@ public class MainLoginPresenterImpl implements MainLoginPresenter {
 
 	@Override
 	public void onLoginSuccess() {
+		DefaultLogger.d(TAG, "Login Success");
 		if(mView != null) {
 			mView.onLoginSuccess();
 		}
@@ -107,6 +111,7 @@ public class MainLoginPresenterImpl implements MainLoginPresenter {
 
 	@Override
 	public void onLoginFailed() {
+		DefaultLogger.d(TAG, "Login Failed");
 		if(mView != null) {
 			mView.onLoginFailed();
 		}
